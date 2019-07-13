@@ -26,14 +26,16 @@
             android:name="com.baidu.speech.SECRET_KEY"
             android:value="y7S7hAI894BB3LF1yHYmvQEus1B6wPvj" />
 
-        <activity android:name=".activity.MainActivity">
+        <activity android:name=".activity.MainActivity"></activity>
+        <activity android:name=".activity.QuestionActivity" />
+        <activity android:name=".activity.LoginActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".activity.QuestionActivity"></activity>
+        <activity android:name=".activity.VoiceprintRegisterActivity"></activity>
     </application>
 
 </manifest>

@@ -230,40 +230,45 @@ public class MainActivity extends AppCompatActivity {
             ApiService apiService = RetrofitUtils.defBuilder().create(ApiService.class);
             if (respond.contains("天气")) {
                 respond = respond.replaceAll("天气", "");
-                apiService.getWeather(CityUtils.queryCity(respond)).subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread())
-                        .subscribe(responseBody -> {
-                            stopLoading();
-                            try {
-                                WeatherResult bean = new Gson().fromJson(responseBody.string(), WeatherResult.class);
-                                if (bean.getResultcode() == 200) {
-                                    WeatherResult.ResultBean result = bean.getResult();
-                                    WeatherResult.ResultBean.TodayBean today = result.getToday();
-                                    String stringBuilder = today.getCity() + "天气情况如：" +
-                                            "\n气温：" + today.getTemperature() + "\n天气：" + today.getWeather() +
-                                            "\n风向：" + today.getWind() + "\n紫外线强度：" + today.getUv_index() +
-                                            "\n穿衣指数：" + today.getDressing_index() + "\n穿衣建议：" + today.getDressing_advice();
-                                    showRobotMsg(stringBuilder);
-                                } else {
-                                    try {
-                                        String reason = bean.getReason();
-                                        if (TextUtils.isEmpty(reason)) {
+                if (TextUtils.isEmpty(respond)) {
+                    stopLoading();
+                    showRobotMsg("查天气的时候请说 城市+天气(只支持市级城市)");
+                } else {
+                    apiService.getWeather(CityUtils.queryCity(respond)).subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread())
+                            .subscribe(responseBody -> {
+                                stopLoading();
+                                try {
+                                    WeatherResult bean = new Gson().fromJson(responseBody.string(), WeatherResult.class);
+                                    if (bean.getResultcode() == 200) {
+                                        WeatherResult.ResultBean result = bean.getResult();
+                                        WeatherResult.ResultBean.TodayBean today = result.getToday();
+                                        String stringBuilder = today.getCity() + "天气情况：" +
+                                                "\n气温：" + today.getTemperature() + "\n天气：" + today.getWeather() +
+                                                "\n风向：" + today.getWind() + "\n紫外线强度：" + today.getUv_index() +
+                                                "\n穿衣指数：" + today.getDressing_index() + "\n穿衣建议：" + today.getDressing_advice();
+                                        showRobotMsg(stringBuilder);
+                                    } else {
+                                        try {
+                                            String reason = bean.getReason();
+                                            if (TextUtils.isEmpty(reason)) {
+                                                askRobotError();
+                                            } else {
+                                                showRobotMsg(reason);
+                                            }
+                                        } catch (Exception e) {
+                                            e.printStackTrace();
                                             askRobotError();
-                                        } else {
-                                            showRobotMsg(reason);
                                         }
-                                    } catch (Exception e) {
-                                        e.printStackTrace();
-                                        askRobotError();
                                     }
+                                } catch (Exception e) {
+                                    e.printStackTrace();
+                                    askRobotError();
                                 }
-                            } catch (Exception e) {
-                                e.printStackTrace();
-                                askRobotError();
-                            }
-                        }, throwable -> {
-                            stopLoading();
-                            showRobotMsg("网络故障，再试一次吧");
-                        });
+                            }, throwable -> {
+                                stopLoading();
+                                showRobotMsg("网络故障，再试一次吧");
+                            });
+                }
             } else {
                 apiService.qingyunkeChat(respond).subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread())
                         .subscribe(responseBody -> {
@@ -422,7 +427,7 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-    private interface PermissionResult {
+    public interface PermissionResult {
         //当有拒绝授权时 返回的 deniedPermissionNames 会包含拒绝的权限名称  hasNever 表示有选择不再提醒的拒绝
         void onPermissionResult(String[] deniedPermissionNames, boolean hasNever);
     }
