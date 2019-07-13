@@ -1,0 +1,14 @@
+<manifest xmlns:android="http://schemas.android.com/apk/res/android" package="com.baidu.aip.asrwakeup3.core">
+
+    <application>
+        <meta-data
+                android:name="com.baidu.speech.APP_ID"
+                android:value="15590577"/>
+        <meta-data
+                android:name="com.baidu.speech.API_KEY"
+                android:value="q2uPyBe6LmWTZlvb0g1dzcHV"/>
+        <meta-data
+                android:name="com.baidu.speech.SECRET_KEY"
+                android:value="y7S7hAI894BB3LF1yHYmvQEus1B6wPvj"/>
+    </application>
+</manifest>

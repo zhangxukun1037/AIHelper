@@ -1,0 +1,132 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.android.aihelper.activity.MainActivity">
+
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@drawable/bg"
+        android:scaleType="centerCrop" />
+
+    <RelativeLayout
+        android:id="@+id/layout_title"
+        android:layout_width="match_parent"
+        android:layout_height="48dp"
+        android:background="#318ECD">
+
+        <TextView
+            android:id="@+id/title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:gravity="center"
+            android:text="A I 助手"
+            android:textColor="#FFFFFF"
+            android:textSize="18sp" />
+
+        <ImageView
+            android:id="@+id/iv_question"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="16dp"
+            android:src="@drawable/icon_question" />
+    </RelativeLayout>
+
+    <ImageView
+        android:id="@+id/iv_mic"
+        android:layout_width="70dp"
+        android:layout_height="70dp"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="36dp"
+        android:background="@drawable/shape_mic_bg"
+        android:padding="12dp"
+        android:src="@drawable/icon_mic" />
+
+    <View
+        android:id="@+id/view_triangle_mic"
+        android:layout_width="10dp"
+        android:layout_height="10dp"
+        android:layout_above="@id/iv_mic"
+        android:layout_centerHorizontal="true"
+        android:background="@drawable/shape_triangle"
+        android:visibility="gone" />
+
+    <TextView
+        android:id="@+id/tv_mic"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/view_triangle_mic"
+        android:layout_centerHorizontal="true"
+        android:background="@drawable/shape_msg_bg_mine"
+        android:minWidth="30dp"
+        android:paddingBottom="4dp"
+        android:paddingLeft="8dp"
+        android:paddingRight="8dp"
+        android:paddingTop="4dp"
+        android:textColor="#FFFFFF"
+        android:textSize="14sp"
+        android:visibility="gone"
+        tools:text="华侨大学" />
+
+    <ImageView
+        android:id="@+id/iv_robot"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
+        android:layout_below="@id/layout_title"
+        android:layout_marginLeft="16dp"
+        android:layout_marginRight="16dp"
+        android:layout_marginTop="22dp"
+        android:src="@drawable/icon_robot" />
+
+    <ImageView
+        android:id="@+id/iv_robot_sound"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:layout_alignBottom="@id/iv_robot"
+        android:layout_alignTop="@id/iv_robot"
+        android:layout_toRightOf="@id/iv_robot"
+        android:src="@drawable/sound_anim"
+        android:visibility="gone" />
+
+    <View
+        android:id="@+id/view_triangle_robot"
+        android:layout_width="10dp"
+        android:layout_height="10dp"
+        android:layout_alignLeft="@id/iv_robot"
+        android:layout_below="@id/iv_robot"
+        android:layout_marginLeft="25dp"
+        android:layout_marginTop="5dp"
+        android:background="@drawable/shape_triangle_robot"
+        android:visibility="gone" />
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="210dp"
+        android:layout_below="@id/view_triangle_robot">
+
+        <TextView
+            android:id="@+id/tv_robot"
+            android:layout_width="wrap_content"
+            android:layout_height="500dp"
+            android:layout_marginLeft="16dp"
+            android:layout_marginRight="16dp"
+            android:background="@drawable/shape_msg_bg_mine"
+            android:maxHeight="500dp"
+            android:minWidth="80dp"
+            android:paddingBottom="4dp"
+            android:paddingLeft="8dp"
+            android:paddingRight="8dp"
+            android:paddingTop="4dp"
+            android:textColor="#FFFFFF"
+            android:textSize="14sp"
+            android:visibility="gone"
+            tools:text="华侨大学" />
+    </ScrollView>
+</RelativeLayout>
