@@ -44,6 +44,7 @@ import io.reactivex.functions.Consumer;
 
 public class LoginActivity extends AppCompatActivity implements View.OnTouchListener {
 
+    private static final int REQUEST_CODE_VOICEPRINT = 100;
     @BindView(R.id.layout_title)
     RelativeLayout layoutTitle;
     @BindView(R.id.tv_yz_tips)
@@ -235,7 +236,15 @@ public class LoginActivity extends AppCompatActivity implements View.OnTouchList
 
     @OnClick(R.id.tv_register)
     public void onViewClicked() {
-        startActivity(new Intent(this, VoiceprintRegisterActivity.class));
+        startActivityForResult(new Intent(this, VoiceprintRegisterActivity.class), REQUEST_CODE_VOICEPRINT);
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (REQUEST_CODE_VOICEPRINT == requestCode) {
+            mVerifyNumPwd = VerifierUtil.generateNumberPassword(8);
+        }
     }
 
     @Override
