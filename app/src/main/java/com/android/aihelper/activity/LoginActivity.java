@@ -279,7 +279,14 @@ public class LoginActivity extends AppCompatActivity implements View.OnTouchList
     private boolean checkInstance() {
         if (null == mIdVerifier) {
             // 创建单例失败，与 21001 错误为同样原因，参考 http://bbs.xfyun.cn/forum.php?mod=viewthread&tid=9688
-            ToastUtils.showShort("创建对象失败，请确认 libmsc.so 放置正确，\n 且有调用 createUtility 进行初始化");
+            tvYzTips.setText("引擎初始化失败，即将进入AI助手页面");
+            tvYzTips.postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    startActivity(new Intent(LoginActivity.this, MainActivity.class));
+                    finish();
+                }
+            }, 1000);
             return false;
         } else {
             return true;
@@ -349,15 +356,19 @@ public class LoginActivity extends AppCompatActivity implements View.OnTouchList
 
     @Override
     protected void onDestroy() {
-        if (null != mIdVerifier) {
-            mPcmRecorder.stopRecord(true);
-            mIdVerifier.cancel();
-            mIdVerifier.destroy();
-            mIdVerifier = null;
-            mPcmRecorder = null;
-            mPcmRecordListener = null;
+        try {
+            if (null != mIdVerifier) {
+                mPcmRecorder.stopRecord(true);
+                mIdVerifier.cancel();
+                mIdVerifier.destroy();
+                mIdVerifier = null;
+                mPcmRecorder = null;
+                mPcmRecordListener = null;
+            }
+            SpeechUtility.getUtility().destroy();
+        } catch (Exception e) {
+            e.printStackTrace();
         }
-        SpeechUtility.getUtility().destroy();
         super.onDestroy();
     }
 

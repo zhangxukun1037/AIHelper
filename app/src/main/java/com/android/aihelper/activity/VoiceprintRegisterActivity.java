@@ -265,7 +265,7 @@ public class VoiceprintRegisterActivity extends AppCompatActivity implements Vie
                 if ("accepted".equalsIgnoreCase(decision)) {
                     tvSpeak.setText("验证通过");
                 } else {
-                    tvSpeak.setText("验证失败");
+                    tvSpeak.setText("验证失败\n声纹未注册");
                 }
                 tvSpeakCount.setVisibility(View.GONE);
             } catch (JSONException e) {
